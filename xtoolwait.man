@@ -3,7 +3,8 @@
 xtoolwait \- start X client and wait for it to map a window
 .SH SYNOPSIS
 \fBxtoolwait\fP [ -display \fIdisplay-name\fP ] [ -timeout \fInseconds\fP ]
-[ -mappings \fInwindows\fP ] [ -pid ] [ -help ] [ -version ] \fIcommand\fP
+[ -mappings \fInwindows\fP ] [ -withdrawn ] [ -pid ] [ -help ]
+[ -version ] \fIcommand\fP
 .SH DESCRIPTION
 \fBXtoolwait\fP notably decreases the startup time of an X session by reducing
 the load on the X server and the OS.
@@ -28,6 +29,10 @@ Exit after \fInwindows\fP windows have been mapped, instead of the default of
 one window. Use this option only if you are absolutely sure that \fIcommand\fP
 will map \fInwindows\fP top-level windows, in which case it will slightly
 increase the performance.
+.TP
+\fB-withdrawn\fP
+Consider windows in Withdrawn state as mapped.  This causes the expected
+behaviour when starting Window Maker dockapps.
 .TP
 \fB-pid\fP
 Print the process id (pid) of \fIcommand\fP to standard output. This option

@@ -1,0 +1,126 @@
+xtoolwait (1.3-5) unstable; urgency=low
+
+  * New maintainer.  Closes: #192675, #170220.
+  * Added support for windows in Withdrawn state (e.g. support Window Maker
+    dockapps).  Closes: #142272.
+  * Updated for Debian Policy 3.6.1
+  * Upgraded to debhelper 4
+
+ -- Dwayne C. Litzenberger <debian@dlitz.net>  Sun, 24 Aug 2003 10:42:17 -0600
+
+xtoolwait (1.3-4.1) unstable; urgency=low
+
+  * NMU
+  * Rebuild to get rid of obsolete dependency on xlib6g.  Closes: #170220.
+  * Add Build-Depends.
+
+ -- Daniel Schepler <schepler@debian.org>  Fri, 14 Mar 2003 17:39:15 -0800
+
+xtoolwait (1.3-4) unstable; urgency=low
+
+  * Fix reference to GPL (lintian)
+
+ -- Martin Bialasinski <martinb@debian.org>  Sun, 13 Aug 2000 16:46:31 +0200
+
+xtoolwait (1.3-3) unstable; urgency=low
+
+  * Policy 3.0.1
+
+ -- Martin Bialasinski <martinb@debian.org>  Thu, 16 Sep 1999 18:33:10 +0200
+
+xtoolwait (1.3-2) unstable; urgency=low
+
+  * Corrected homepage location
+
+ -- Martin Bialasinski <martinb@debian.org>  Sun,  1 Aug 1999 16:04:51 +0200
+
+xtoolwait (1.3-1) unstable; urgency=low
+
+  * New upstream release
+  * Closes Bug #36685
+  * Added author and Homepage to description
+
+ -- Martin Bialasinski <martinb@debian.org>  Sat, 31 Jul 1999 20:10:37 +0200
+
+xtoolwait (1.2-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Martin Bialasinski <martinb@debian.org>  Tue, 15 Sep 1998 01:23:54 +0200
+
+xtoolwait (1.1-8) unstable; urgency=low
+
+  * New Maintainer
+  * Standards 2.4.1
+  * Use debhelper in debian/rules
+  
+ -- Martin Bialasinski <martinb@debian.org>  Thu, 25 Jun 1998 21:22:51 +0200
+
+xtoolwait (1.1-7) unstable; urgency=low
+
+  * Use `dh_md5sums'.
+  * Lintian 0.2.2 satisfied.
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Wed, 18 Feb 1998 19:15:16 +0100
+
+xtoolwait (1.1-6) unstable; urgency=low
+
+  * `checksums' renamed to `md5sums'.
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Fri, 13 Feb 1998 18:15:09 +0100
+
+xtoolwait (1.1-5) unstable; urgency=low
+
+  * FSF address corrected.
+  * Standards 2.4.0.0.
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Mon,  9 Feb 1998 21:18:49 +0100
+
+xtoolwait (1.1-4) unstable; urgency=low
+
+  * Upstream sources location updated.
+  * `-isp' flag added to dpkg-gencontrol.
+  * More error safe `rules'.
+  * Description synopsis shortened.
+  * Gzip `changelog.Debian'.
+  * `CHANGES' renamed to `changelog' and gzipped.
+  * Standards 2.3.0.1.
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Mon, 12 Jan 1998 19:43:03 +0100
+
+xtoolwait (1.1-3) unstable; urgency=low
+
+  * Compiled with libc6.
+  * Does not use `debstd' anymore.
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Tue,  7 Oct 1997 11:10:36 +0200
+
+xtoolwait (1.1-2) unstable; urgency=low
+
+  * `changelog.upstream' renamed to `changelog' (Bug #9633).
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Mon, 12 May 1997 11:12:52 +0200
+
+xtoolwait (1.1-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Mon, 3 Mar 1997 12:49:32 +0100
+
+xtoolwait (1.0-2) unstable; urgency=low
+
+  * Architecture field changed from `i386' to `any' (Bug #6440).
+  * Fixed bad manpage permissions.
+  * Moved to new standards.
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Mon, 13 Jan 1997 12:58:32 +0100
+
+xtoolwait (1.0-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Milan Zamazal <pdm@fi.muni.cz>  Thu, 31 Oct 1996 22:43:46 +0100
+
+Local variables:
+mode: debian-changelog
+End:

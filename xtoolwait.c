@@ -46,6 +46,7 @@ options:\n\
    -display display-name\n\
    -timeout nseconds\n\
    -mappings nwindows\n\
+   -withdrawn\n\
    -pid\n\
    -help\n\
    -version\n"
@@ -57,6 +58,7 @@ Display *dpy;
 char *programname, *childname;
 Atom xa_wm_state;
 int (*prevxerrhandler)(Display *, XErrorEvent *);
+int withdrawnok = 0;
 
 void
 timeout(signo)
@@ -103,7 +105,7 @@ is_mapped(window)
     state = *((CARD32 *) prop);
 
     switch ((int) state) {
-        case WithdrawnState: DPRINTF(("WithdrawnState")); return 0;
+        case WithdrawnState: DPRINTF(("WithdrawnState")); return withdrawnok;
         case NormalState:    DPRINTF(("NormalState"));    return 1;
         case IconicState:    DPRINTF(("IconicState"));    return 1;
     }
@@ -208,6 +210,11 @@ main(argc, argv)
             continue;
         }
 
+	if (!strcmp(argv[arg], "-withdrawn")) {
+	    withdrawnok = 1;
+	    arg += 1;
+	    continue;
+	}
         break;
     }
 
