@@ -1,6 +1,6 @@
 /*
  *  Xtoolwait - wait for X client to map a window
- *  Copyright (C) 1995  Richard Huveneers <richard@hekkihek.hacom.nl>
+ *  Copyright (C) 1995-1999  Richard Huveneers <richard@hekkihek.hacom.nl>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -46,15 +46,17 @@ options:\n\
    -display display-name\n\
    -timeout nseconds\n\
    -mappings nwindows\n\
+   -pid\n\
    -help\n\
    -version\n"
 #define MAINTAINER		"richard@hekkihek.hacom.nl"
 #define VERSION_MAJOR		1
-#define VERSION_MINOR		1
+#define VERSION_MINOR		3
 
 Display *dpy;
 char *programname, *childname;
 Atom xa_wm_state;
+int (*prevxerrhandler)(Display *, XErrorEvent *);
 
 void
 timeout(signo)
@@ -115,12 +117,33 @@ is_mapped(window)
 }
 
 int
+xerrhandler(d, e)
+    Display *d;
+    XErrorEvent *e;
+{
+    DPRINTF(("received X error (error code %d, major opcode %d)\n", (int) e->error_code, (int) e->request_code));
+
+    if ((int) e->error_code == BadWindow)
+    {
+        /*
+        ** This error occurs when a window is destroyed before we got a
+        ** chance to examine it.
+        */
+        DPRINTF(("  BadWindow error: ignored\n"));
+        return 0;
+    }
+
+    return prevxerrhandler(d, e);
+}
+
+int
 main(argc, argv)
     int argc;
     char **argv;
 {
     int pid;
     int arg = 1;
+    int printpid = 0;
     char *endptr;
     char *displayname = NULL;
     unsigned long timeouttime = DEFAULT_TIMEOUT;
@@ -147,6 +170,12 @@ main(argc, argv)
             (void) fprintf(stdout, "%s version %d.%d\n", programname, VERSION_MAJOR, VERSION_MINOR);
             return 0;
         }
+
+	if (!strcmp(argv[arg], "-pid")) {
+	    printpid = 1;
+	    arg += 1;
+	    continue;
+	}
 
         /* the remaining options need at least one argument */
         if (arg+1 == argc) break;
@@ -183,6 +212,8 @@ main(argc, argv)
     }
 
     childname = argv[arg];
+
+    prevxerrhandler = XSetErrorHandler(xerrhandler);
 
     dpy = XOpenDisplay(displayname);
     if (!dpy) {
@@ -241,6 +272,16 @@ main(argc, argv)
 	XCloseDisplay(dpy);
 	return 1;
     case 0:
+	if (printpid) {
+	    (void) fprintf(stdout, "%u\n", getpid());
+	    (void) fflush(stdout);
+	    /* redirect stdout of child to stderr */
+	    if (dup2(2, 1) == -1) {
+		(void) fprintf(stderr, "%s: error ", programname);
+		perror("redirecting stdout of child to stderr");
+		return 1;
+	    }
+	}
 	(void) execvp(argv[arg], argv + arg);
 	(void) fprintf(stderr, "%s: error executing ", programname);
         perror(childname);

@@ -1,3 +1,16 @@
+Jul 31 1999: xtoolwait 1.3 released
+
+	* If a window is destroyed before xtoolwait has examined it,
+	  xtoolwait would exit with a BadWindow error. This error is
+	  now ignored by xtoolwait.
+	  Thanks to Jeff Sheinberg for reporting this bug and to
+	  Martin Bialasinski for helping to debug.
+
+Sep  2 1998: xtoolwait 1.2 released
+
+	* Added the -pid option.
+	  Idea and initial code by Oron Peled <oron@actcom.co.il>.
+
 Jan 12 1997: xtoolwait 1.1 released
 
 	* Updated the documentation: use the -mappings option once to

@@ -1,9 +1,9 @@
-.TH XTOOLWAIT 1 "12 January 97"
+.TH XTOOLWAIT 1 "31 July 99"
 .SH NAME
 xtoolwait \- start X client and wait for it to map a window
 .SH SYNOPSIS
 \fBxtoolwait\fP [ -display \fIdisplay-name\fP ] [ -timeout \fInseconds\fP ]
-[ -mappings \fInwindows\fP ] [ -help ] [ -version ] \fIcommand\fP
+[ -mappings \fInwindows\fP ] [ -pid ] [ -help ] [ -version ] \fIcommand\fP
 .SH DESCRIPTION
 \fBXtoolwait\fP notably decreases the startup time of an X session by reducing
 the load on the X server and the OS.
@@ -28,6 +28,13 @@ Exit after \fInwindows\fP windows have been mapped, instead of the default of
 one window. Use this option only if you are absolutely sure that \fIcommand\fP
 will map \fInwindows\fP top-level windows, in which case it will slightly
 increase the performance.
+.TP
+\fB-pid\fP
+Print the process id (pid) of \fIcommand\fP to standard output. This option
+is useful for shell scripts that want to wait for (or send a signal to)
+\fIcommand\fP. To support shell command substitution (`command`),
+\fBXtoolwait\fP redirects the standard output of \fIcommand\fP to standard
+error.
 .TP
 \fB-help\fP
 Print out the `Usage:' command syntax summary.
@@ -87,7 +94,7 @@ If you use this option, you should feed it both to \fBXtoolwait\fP and to
 \fBXtoolwait\fP was written by Richard Huveneers <richard@hekkihek.hacom.nl>.
 Check out http://www.hacom.nl/~richard for more information about the author.
 .SH COPYRIGHT
-Copyright (C) 1995  Richard Huveneers <richard@hekkihek.hacom.nl>.
+Copyright (C) 1995-1999  Richard Huveneers <richard@hekkihek.hacom.nl>.
 \fBXtoolwait\fP is released under the GNU General Public License.
 The full copyright notice is stated at the start of the source code.
 .SH BUGS
