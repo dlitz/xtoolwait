@@ -1,0 +1,19 @@
+Begin3
+Title:          xtoolwait
+Version:        1.1
+Entered-date:   12JAN97
+Description:    Xtoolwait notably decreases the startup time of your X
+		sessions, provided that you start a number of X clients
+		automatically during the X session startup.
+		Xtoolwait starts one X client in the background,
+		waits until it has mapped a window and then exits.
+Keywords:       start client wait toolwait
+Author:         richard@hekkihek.hacom.nl (Richard Huveneers)
+Maintained-by:  
+Primary-site:   ftp.x.org /contrib/utilities
+		13kB xtoolwait-1.1.tar.gz
+Alternate-site: ftp.hacom.nl /pub/users/richard
+Original-site:  
+Platforms:      
+Copying-policy: GPL
+End

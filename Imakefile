@@ -1,0 +1,6 @@
+SRCS = xtoolwait.c
+OBJS = xtoolwait.o
+
+SYS_LIBRARIES = $(XLIB)
+
+ComplexProgramTarget(xtoolwait)

@@ -1,0 +1,147 @@
+
+			  *** Xtoolwait 1.1 ***
+
+		Richard Huveneers <richard@hekkihek.hacom.nl>
+
+This utility notably decreases the startup time of your X sessions, provided
+that you start a number of X clients automatically during the X session
+startup.
+Most people, for instance, start X clients like xterm, xclock, xconsole and
+xosview from their .xinitrc, .openwin-init, .xtoolplaces or .xsession file.
+
+These X clients are started simultaneously (in the background) which puts a
+high load on the X server and the OS:
+
+* The X server is not multi-threaded, so all X clients are competing to get
+  access to the X server and to use its resources, which causes a lot of
+  overhead (= delay).
+
+* The performance of other (non X related) tasks served by the system degrades
+  badly due to the high load.
+  If the system has not enough RAM to hold all the X clients, it is swapping
+  heavily, resulting again in a lot of delay.
+
+On the Sun platform there is a utility called 'toolwait' which solves these
+problems: it starts one X client in the background, waits until it has mapped
+a window and then exits.
+
+Xtoolwait is a free implementation of exactly the same idea.
+
+HISTORY
+
+	Of course I first looked around if somebody else already wrote a
+	similar utility. I first stumbled upon this simple, but useless, shell
+	script:
+
+	#!/bin/sh
+	${1+"$@"}&
+
+	Then I found 'toolwait-0.9' written by Brandon S. Allbery. His program
+	relies on the XView libraries to receive events from the X server. For
+	some reason this method fails to detect about 50% of the X events,
+	resulting in an equal amount of time-outs.
+
+	So I decided to write Xtoolwait. The result is this small, clean
+	utility which only uses standard Xlib calls and works 100% for me.
+
+	After releasing Xtoolwait 0.1, someone told me about xrunclient, which
+	is included in the MIT X11 distribution. Since both utilities share
+	the same goal, I would probably not have bothered to write Xtoolwait
+	if I had known of xrunclient before.
+	So, why should you use Xtoolwait instead of xrunclient? Simply because
+	Xtoolwait does the job much better, as is readily shown by timing the
+	startup of X clients like xterm.
+
+SUPPORTED PLATFORMS
+
+	This list is far from complete. I expect Xtoolwait to run under _any_
+	operating system, X11 release and window manager.
+	If you are using Xtoolwait under an unlisted operating system, X11
+	release	or window manager, please let me know.
+
+	Xtoolwait is known to work on these platforms:
+
+	Operating system:	Linux 1.x, 2.x
+				Ultrix 4.4
+				DEC OSF/1 3.0
+				Solaris 2.4
+				SunOS 4.1.x
+				SGI IRIX 5.2
+
+	X11 release:		X11R5
+				X11R6
+				X11R6.1
+
+	Window manager:		olvwm 4
+				olwm (version?)
+				tvtwm R5.7
+				twm R6
+				fvwm 1.23b
+
+INSTALLATION
+
+	Installing Xtoolwait is very easy:
+
+	xmkmf
+	make
+	make install
+	make install.man
+
+USAGE
+
+	This is the relevant part of my own .xinitrc file, showing the
+	proper use of xtoolwait:
+
+	#
+	# Startup the window manager first
+	#
+	olvwm & wmpid=$!
+	#
+	# Restore desktop settings
+	# Do _not_ put xtoolwait in the background
+	#
+	xtoolwait -mappings 2 contool -Wp 30 30 -Ws 575 246 -WP 3 533 -Wi
+	xtoolwait xeyes -geom 77x60+640+107
+	xtoolwait ansi_xterm -geom 80x24+22+11
+	xtoolwait clock -Wp 90 90 -Ws 150 150 -WP 733 110 -Wi
+	#
+	# Wait for the window manager
+	#
+	wait $wmpid
+
+	Note that the window manager must be started first. Xtoolwait depends
+	on it to detect window mappings. The first instance of Xtoolwait will
+	wait until both the window manager and the X client have finished
+	their initialization.
+
+	Note also that the first Xtoolwait uses the -mappings option to
+	detect the virtual desktop window, which is mapped by virtual window
+	managers. Omit this option if you use a non-virtual window manager.
+
+	Do not put Xtoolwait in the background with an '&'. When Xtoolwait
+	detects a window mapping it will put the X client in the background
+	and exit.
+
+	Xtoolwait has a few options. Examine the manual page (man xtoolwait)
+	after the installation.
+
+COPYRIGHT
+
+	Copyright (C) 1995  Richard Huveneers <richard@hekkihek.hacom.nl>
+	Xtoolwait is released under the GNU General Public License.
+	The full copyright notice is stated at the start of the source code.
+
+SUPPORT
+
+	Support for Xtoolwait has been integrated in the official distribution
+	of Xtoolplaces. Using the -w option of Xtoolplaces, saved desktop
+	configurations will automatically be restored using Xtoolwait.
+
+	Xtoolplaces is written by Adam Stein <adam@iset.scan.mc.xerox.com>
+	and is available at
+	http://mammoth.lle.rochester.edu/~adam/Progs/programs.html
+
+Enjoy,
+
+Richard Huveneers
+<richard@hekkihek.hacom.nl>

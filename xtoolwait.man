@@ -1,0 +1,98 @@
+.TH XTOOLWAIT 1 "12 January 97"
+.SH NAME
+xtoolwait \- start X client and wait for it to map a window
+.SH SYNOPSIS
+\fBxtoolwait\fP [ -display \fIdisplay-name\fP ] [ -timeout \fInseconds\fP ]
+[ -mappings \fInwindows\fP ] [ -help ] [ -version ] \fIcommand\fP
+.SH DESCRIPTION
+\fBXtoolwait\fP notably decreases the startup time of an X session by reducing
+the load on the X server and the OS.
+\fBXtoolwait\fP starts the X client \fIcommand\fP in the background. It then
+waits until a window is mapped on the root window and exits.
+\fBXtoolwait\fP also exits if a time-out occurs (by default after
+15 seconds), or if \fIcommand\fP exits.
+.SH OPTIONS
+.TP
+\fB-display \fIdisplay-name\fR
+Monitor the X display \fIdisplay-name\fR for window mapping events.
+If this option is not used, the X display defaults to the value of
+the \fBDISPLAY\fP environment variable.
+See also section \fBNOTES\fP below.
+.TP
+\fB-timeout \fInseconds\fR
+Use a time-out period of \fInseconds\fP seconds. If this option is not
+used, the time-out period defaults to 15 seconds.
+.TP
+\fB-mappings \fInwindows\fR
+Exit after \fInwindows\fP windows have been mapped, instead of the default of
+one window. Use this option only if you are absolutely sure that \fIcommand\fP
+will map \fInwindows\fP top-level windows, in which case it will slightly
+increase the performance.
+.TP
+\fB-help\fP
+Print out the `Usage:' command syntax summary.
+.TP
+\fB-version\fP
+Print out the version number.
+.SH USAGE
+This is the relevant part of my own .xinitrc file, showing the
+proper use of \fBXtoolwait\fP:
+.RS
+.sp
+.nf
+.ne 16
+#
+# Startup the window manager first
+#
+olvwm & wmpid=$!
+#
+# Restore desktop settings
+# Do _not_ put xtoolwait in the background
+#
+xtoolwait -mappings 2 contool -Wp 30 30 -Ws 575 246 -WP 3 533 -Wi
+xtoolwait xeyes -geom 77x60+640+107
+xtoolwait ansi_xterm -geom 80x24+22+11
+xtoolwait clock -Wp 90 90 -Ws 150 150 -WP 733 110 -Wi
+#
+# Wait for the window manager
+#
+wait $wmpid
+.fi
+.sp
+.RE
+Note that the window manager must be started first. \fBXtoolwait\fP depends
+on it to detect window mappings. The first instance of \fBXtoolwait\fP will
+wait until both the window manager and the X client have finished
+their initialization.
+.PP
+Note also that the first \fBXtoolwait\fP uses the \fB-mappings\fP option to
+detect the virtual desktop window, which is mapped by virtual window
+managers. Omit this option if you use a non-virtual window manager.
+.SH "EXIT STATUS"
+\fBXtoolwait\fP returns 0 if it detected the mapping of a window on the root
+window, and 1 otherwise. The one exception to this rule is when \fIcommand\fP
+exits normally before mapping a window, in which case its return value is
+returned.
+.SH ENVIRONMENT
+.TP
+\fBDISPLAY\fP
+The default display name to monitor
+.SH "SEE ALSO"
+xtoolplaces(1)
+.SH NOTES
+\fBXtoolwait\fP does not propagate the \fB-display\fP option to \fIcommand\fP.
+If you use this option, you should feed it both to \fBXtoolwait\fP and to
+\fIcommand\fP. This is intentional, so don't report this as a bug.
+.SH AUTHOR
+\fBXtoolwait\fP was written by Richard Huveneers <richard@hekkihek.hacom.nl>.
+Check out http://www.hacom.nl/~richard for more information about the author.
+.SH COPYRIGHT
+Copyright (C) 1995  Richard Huveneers <richard@hekkihek.hacom.nl>.
+\fBXtoolwait\fP is released under the GNU General Public License.
+The full copyright notice is stated at the start of the source code.
+.SH BUGS
+\fBXtoolwait\fP tries to ignore windows that are mapped by other X clients.
+The method used will fail if two or more X clients are started almost
+simultaneously.
+This situation does not arise as long as all X clients are started by
+\fBXtoolwait\fP during the X session startup.
