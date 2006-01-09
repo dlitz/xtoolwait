@@ -2,17 +2,17 @@ Source: xtoolwait
 Section: x11
 Priority: optional
 Maintainer: Dwayne C. Litzenberger <debian@dlitz.net>
-Build-Depends: debhelper (>> 4.0.0), xlibs-dev, xutils
+Build-Depends: debhelper (>> 4.0.0), x-dev, libx11-dev, libxext-dev, xutils
 Standards-Version: 3.6.1
 
 Package: xtoolwait
 Architecture: any
-Depends: ${shlibs:Depends} ${misc:Depends}
+Depends: ${shlibs:Depends}
 Description: Allows to start X applications serially
  Xtoolwait notably decreases the startup time of your X sessions,
  provided that you start a number of X clients automatically during the
  X session startup.  Xtoolwait starts one X client in the background,
  waits until it has mapped a window and then exits.
  .
- Author: Richard Huveneers <richard@hekkihek.hacom.nl>
+ Author: Richard Huveneers <richard@hacom.nl>
  Homepage: http://www.hacom.nl/~richard/software/xtoolwait.html
