@@ -46,6 +46,7 @@ clean:
 
 	# Add here commands to clean up after the build process.
 	-$(MAKE) clean
+	rm -f Makefile
 
 	dh_clean
 
