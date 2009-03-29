@@ -2,7 +2,7 @@ Source: xtoolwait
 Section: x11
 Priority: optional
 Maintainer: Dwayne C. Litzenberger <debian@dlitz.net>
-Build-Depends: debhelper (>> 4.0.0), x-dev, libx11-dev, libxext-dev, xutils
+Build-Depends: debhelper (>> 4.0.0), x11proto-core-dev, libx11-dev, libxext-dev, xutils-dev
 Standards-Version: 3.6.1
 
 Package: xtoolwait
