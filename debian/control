@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Dwayne C. Litzenberger <debian@dlitz.net>
 Build-Depends: debhelper (>> 7.0.0), cdbs (>= 0.4.53), x11proto-core-dev, libx11-dev, libxext-dev, xutils-dev
 Standards-Version: 3.8.1
-Homepage: http://www.hacom.nl/~richard/software/xtoolwait.html
+Homepage: http://www.dlitz.net/software/xtoolwait/
 
 Package: xtoolwait
 Architecture: any

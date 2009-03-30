@@ -1,2 +1,7 @@
-The xtoolwait homepage is located at
-http://www.hacom.nl/~richard/software/xtoolwait.html
+The xtoolwait homepage was originally located at
+    http://www.hacom.nl/~richard/software/xtoolwait.html
+but that website now appears to be defunct.
+
+The Debian package maintainer has posted the source code at the following
+location:
+    http://www.dlitz.net/software/xtoolwait/
