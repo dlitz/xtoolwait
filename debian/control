@@ -3,7 +3,7 @@ Section: x11
 Priority: optional
 Maintainer: Dwayne C. Litzenberger <debian@dlitz.net>
 Build-Depends: debhelper (>> 4.0.0), x11proto-core-dev, libx11-dev, libxext-dev, xutils-dev
-Standards-Version: 3.6.1
+Standards-Version: 3.8.1
 Homepage: http://www.hacom.nl/~richard/software/xtoolwait.html
 
 Package: xtoolwait
