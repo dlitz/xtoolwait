@@ -12,6 +12,7 @@ xtoolwait (1.3-7) unstable; urgency=low
     instead of the GPL symlink.
   * Update "Homepage" to point to the package maintainer's website, since the
     original site appears to be defunct.
+  * Properly escape minus-signs in the man page.
 
  -- Dwayne C. Litzenberger <debian@dlitz.net>  Sun, 29 Mar 2009 18:35:58 -0400
 
