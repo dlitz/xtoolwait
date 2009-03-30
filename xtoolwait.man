@@ -1,4 +1,4 @@
-.TH XTOOLWAIT 1 "31 July 99"
+.TH XTOOLWAIT 1x "31 July 99"
 .SH NAME
 xtoolwait \- start X client and wait for it to map a window
 .SH SYNOPSIS
