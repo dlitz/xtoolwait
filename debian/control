@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Dwayne C. Litzenberger <debian@dlitz.net>
 Build-Depends: debhelper (>> 4.0.0), x11proto-core-dev, libx11-dev, libxext-dev, xutils-dev
 Standards-Version: 3.6.1
+Homepage: http://www.hacom.nl/~richard/software/xtoolwait.html
 
 Package: xtoolwait
 Architecture: any
@@ -15,4 +16,3 @@ Description: Allows to start X applications serially
  waits until it has mapped a window and then exits.
  .
  Author: Richard Huveneers <richard@hacom.nl>
- Homepage: http://www.hacom.nl/~richard/software/xtoolwait.html
