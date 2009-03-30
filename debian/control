@@ -8,7 +8,7 @@ Homepage: http://www.dlitz.net/software/xtoolwait/
 
 Package: xtoolwait
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Allows to start X applications serially
  Xtoolwait notably decreases the startup time of your X sessions,
  provided that you start a number of X clients automatically during the
