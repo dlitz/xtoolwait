@@ -4,7 +4,7 @@ xtoolwait (1.3-7) unstable; urgency=low
     - x-dev => x11proto-core-dev (Closes: #485727)
     - xutils => xutils-dev (Closes: #515444)
   * Move "Homepage" from description to a real debian/control field.
-  * Update Standards-Version to 3.8.1
+  * Update Standards-Version to 3.8.4.0
   * Update to debhelper compatibility level 7
   * Switch to cdbs
   * Update xtoolwait.man to use section 1x instead of section 1.
