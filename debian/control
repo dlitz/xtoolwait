@@ -1,7 +1,7 @@
 Source: xtoolwait
 Section: x11
 Priority: optional
-Maintainer: Dwayne C. Litzenberger <debian@dlitz.net>
+Maintainer: Dwayne C. Litzenberger <dlitz@dlitz.net>
 Build-Depends: debhelper (>> 7.0.0), cdbs (>= 0.4.53), x11proto-core-dev, libx11-dev, libxext-dev, xutils-dev
 Standards-Version: 3.8.1
 Homepage: http://www.dlitz.net/software/xtoolwait/

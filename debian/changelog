@@ -15,7 +15,7 @@ xtoolwait (1.3-7) unstable; urgency=low
   * Properly escape minus-signs in the man page.
   * Add ${misc:Depends} to debian/control
 
- -- Dwayne C. Litzenberger <debian@dlitz.net>  Sun, 29 Mar 2009 18:35:58 -0400
+ -- Dwayne C. Litzenberger <dlitz@dlitz.net>  Sun, 28 Mar 2010 15:53:08 -0400
 
 xtoolwait (1.3-6.1) unstable; urgency=high
 
