@@ -75,7 +75,7 @@ child_terminated(signo)
 {
     int status;
 
-    (void) fprintf(stderr, "%s: warning: child (%s) died prematurely\n", programname, childname);
+    (void) fprintf(stderr, "%s: warning: child (%s) exited very quickly\n", programname, childname);
     XCloseDisplay(dpy);
     (void) wait(&status);
     exit(WIFEXITED(status) ? WEXITSTATUS(status) : 1);
@@ -146,6 +146,7 @@ main(argc, argv)
     int pid;
     int arg = 1;
     int printpid = 0;
+    int printwid = 0;
     char *endptr;
     char *displayname = NULL;
     unsigned long timeouttime = DEFAULT_TIMEOUT;
@@ -175,6 +176,12 @@ main(argc, argv)
 
 	if (!strcmp(argv[arg], "-pid")) {
 	    printpid = 1;
+	    arg += 1;
+	    continue;
+	}
+
+	if (!strcmp(argv[arg], "-wid")) {
+	    printwid = 1;
 	    arg += 1;
 	    continue;
 	}
@@ -279,8 +286,10 @@ main(argc, argv)
 	XCloseDisplay(dpy);
 	return 1;
     case 0:
-	if (printpid) {
-	    (void) fprintf(stdout, "%u\n", getpid());
+	if (printpid || printwid) {
+            if(printpid)
+                (void) fprintf(stdout, "%u\n", getpid());
+
 	    (void) fflush(stdout);
 	    /* redirect stdout of child to stderr */
 	    if (dup2(2, 1) == -1) {
@@ -340,6 +349,8 @@ main(argc, argv)
                 }
                 nummappings--;
                 DPRINTF((": accepted\n"));
+
+	        (void) fprintf(stdout, "0x%08x\n", event.xproperty.window);
                 break;
 
             default:

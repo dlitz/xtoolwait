@@ -3,7 +3,7 @@
 xtoolwait \- start X client and wait for it to map a window
 .SH SYNOPSIS
 \fBxtoolwait\fP [ \-display \fIdisplay-name\fP ] [ \-timeout \fInseconds\fP ]
-[ \-mappings \fInwindows\fP ] [ \-withdrawn ] [ \-pid ] [ \-help ]
+[ \-mappings \fInwindows\fP ] [ \-withdrawn ] [ \-pid ] [ \-wid ] [ \-help ]
 [ \-version ] \fIcommand\fP
 .SH DESCRIPTION
 \fBXtoolwait\fP notably decreases the startup time of an X session by reducing
@@ -38,6 +38,12 @@ behaviour when starting Window Maker dockapps.
 Print the process id (pid) of \fIcommand\fP to standard output. This option
 is useful for shell scripts that want to wait for (or send a signal to)
 \fIcommand\fP. To support shell command substitution (`command`),
+\fBXtoolwait\fP redirects the standard output of \fIcommand\fP to standard
+error.
+.TP
+\fB-wid\fP
+Print the id of the found X window to standard output, for use with tools like
+\fIwmctrl\fP or \fIxdotool\fP. To support shell command substitution (`command`),
 \fBXtoolwait\fP redirects the standard output of \fIcommand\fP to standard
 error.
 .TP
