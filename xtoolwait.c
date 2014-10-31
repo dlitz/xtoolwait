@@ -69,18 +69,6 @@ timeout(signo)
     exit(1);
 }
 
-void
-child_terminated(signo)
-    int signo;
-{
-    int status;
-
-    (void) fprintf(stderr, "%s: warning: child (%s) exited very quickly\n", programname, childname);
-    XCloseDisplay(dpy);
-    (void) wait(&status);
-    exit(WIFEXITED(status) ? WEXITSTATUS(status) : 1);
-}
-
 int
 is_mapped(window)
     Window window;
@@ -275,7 +263,6 @@ main(argc, argv)
 #endif
 
     (void) signal(SIGALRM, timeout);
-    (void) signal(SIGCHLD, child_terminated);
     (void) alarm(timeouttime);
 
     switch (pid = fork())
