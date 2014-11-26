@@ -135,6 +135,7 @@ main(argc, argv)
     int arg = 1;
     int printpid = 0;
     int printwid = 0;
+    int noprop = 0;
     char *endptr;
     char *displayname = NULL;
     unsigned long timeouttime = DEFAULT_TIMEOUT;
@@ -173,6 +174,13 @@ main(argc, argv)
 	    arg += 1;
 	    continue;
 	}
+
+	if (!strcmp(argv[arg], "-noprop")) {
+	    noprop = 1;
+	    arg += 1;
+	    continue;
+	}
+
 
         /* the remaining options need at least one argument */
         if (arg+1 == argc) break;
@@ -317,6 +325,14 @@ main(argc, argv)
                 **      Calling is_mapped at this point would solve this, but is
                 **      not a good idea, since it delays the client startup significantly.
                 */
+                
+                if(printwid) {
+	            (void) fprintf(stdout, "0x%08x\n", event.xcreatewindow.window);
+                }
+
+                if(noprop) {
+                    nummappings--;
+                }
 
                 break;
 
@@ -334,10 +350,13 @@ main(argc, argv)
                     DPRINTF((": ignored\n"));
                     break;
                 }
-                nummappings--;
+
+                if(!noprop) {
+                    nummappings--;
+                }
+
                 DPRINTF((": accepted\n"));
 
-	        (void) fprintf(stdout, "0x%08x\n", event.xproperty.window);
                 break;
 
             default:
