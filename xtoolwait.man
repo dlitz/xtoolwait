@@ -3,7 +3,7 @@
 xtoolwait \- start X client and wait for it to map a window
 .SH SYNOPSIS
 \fBxtoolwait\fP [ \-display \fIdisplay-name\fP ] [ \-timeout \fInseconds\fP ]
-[ \-mappings \fInwindows\fP ] [ \-withdrawn ] [ \-pid ] [ \-help ]
+[ \-mappings \fInwindows\fP ] [ \-withdrawn ] [ \-pid ] [ \-wid ] [ \-help ]
 [ \-version ] \fIcommand\fP
 .SH DESCRIPTION
 \fBXtoolwait\fP notably decreases the startup time of an X session by reducing
@@ -40,6 +40,21 @@ is useful for shell scripts that want to wait for (or send a signal to)
 \fIcommand\fP. To support shell command substitution (`command`),
 \fBXtoolwait\fP redirects the standard output of \fIcommand\fP to standard
 error.
+.TP
+\fB-wid\fP
+Print the id of the found X window to standard output, for use with tools like
+\fIwmctrl\fP or \fIxdotool\fP. To support shell command substitution (`command`),
+\fBXtoolwait\fP redirects the standard output of \fIcommand\fP to standard
+error.
+.TP
+\fB-noprop\fP
+Workaround for non-compliant window managers. Try this if xtoolwait times out or
+otherwise fails to detect when its child process creates a window.
+Normally, xtoolwait waits for the window manager to send at least one PropertyNotify
+event for each new window so that it doesn't react until the window has been
+mapped and positioned (at which point the WM usually sends some type of 
+"normal state" property notification). This flag causes xtoolwait to consider a
+window to have been fully created as soon as it recieves a CreateNotify event.
 .TP
 \fB-help\fP
 Print out the `Usage:' command syntax summary.

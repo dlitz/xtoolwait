@@ -48,6 +48,8 @@ options:\n\
    -mappings nwindows\n\
    -withdrawn\n\
    -pid\n\
+   -wid\n\
+   -noprop\n\
    -help\n\
    -version\n"
 #define MAINTAINER		"richard@hekkihek.hacom.nl"
@@ -67,18 +69,6 @@ timeout(signo)
     (void) fprintf(stderr, "%s: warning: timeout launching %s\n", programname, childname);
     XCloseDisplay(dpy);
     exit(1);
-}
-
-void
-child_terminated(signo)
-    int signo;
-{
-    int status;
-
-    (void) fprintf(stderr, "%s: warning: child (%s) died prematurely\n", programname, childname);
-    XCloseDisplay(dpy);
-    (void) wait(&status);
-    exit(WIFEXITED(status) ? WEXITSTATUS(status) : 1);
 }
 
 int
@@ -146,6 +136,8 @@ main(argc, argv)
     int pid;
     int arg = 1;
     int printpid = 0;
+    int printwid = 0;
+    int noprop = 0;
     char *endptr;
     char *displayname = NULL;
     unsigned long timeouttime = DEFAULT_TIMEOUT;
@@ -178,6 +170,19 @@ main(argc, argv)
 	    arg += 1;
 	    continue;
 	}
+
+	if (!strcmp(argv[arg], "-wid")) {
+	    printwid = 1;
+	    arg += 1;
+	    continue;
+	}
+
+	if (!strcmp(argv[arg], "-noprop")) {
+	    noprop = 1;
+	    arg += 1;
+	    continue;
+	}
+
 
         /* the remaining options need at least one argument */
         if (arg+1 == argc) break;
@@ -268,7 +273,6 @@ main(argc, argv)
 #endif
 
     (void) signal(SIGALRM, timeout);
-    (void) signal(SIGCHLD, child_terminated);
     (void) alarm(timeouttime);
 
     switch (pid = fork())
@@ -279,8 +283,10 @@ main(argc, argv)
 	XCloseDisplay(dpy);
 	return 1;
     case 0:
-	if (printpid) {
-	    (void) fprintf(stdout, "%u\n", getpid());
+	if (printpid || printwid) {
+            if(printpid)
+                (void) fprintf(stdout, "%u\n", getpid());
+
 	    (void) fflush(stdout);
 	    /* redirect stdout of child to stderr */
 	    if (dup2(2, 1) == -1) {
@@ -321,6 +327,14 @@ main(argc, argv)
                 **      Calling is_mapped at this point would solve this, but is
                 **      not a good idea, since it delays the client startup significantly.
                 */
+                
+                if(printwid) {
+	            (void) fprintf(stdout, "0x%08x\n", event.xcreatewindow.window);
+                }
+
+                if(noprop) {
+                    nummappings--;
+                }
 
                 break;
 
@@ -338,8 +352,13 @@ main(argc, argv)
                     DPRINTF((": ignored\n"));
                     break;
                 }
-                nummappings--;
+
+                if(!noprop) {
+                    nummappings--;
+                }
+
                 DPRINTF((": accepted\n"));
+
                 break;
 
             default:
