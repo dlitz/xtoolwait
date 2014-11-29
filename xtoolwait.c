@@ -48,6 +48,8 @@ options:\n\
    -mappings nwindows\n\
    -withdrawn\n\
    -pid\n\
+   -wid\n\
+   -noprop\n\
    -help\n\
    -version\n"
 #define MAINTAINER		"richard@hekkihek.hacom.nl"
